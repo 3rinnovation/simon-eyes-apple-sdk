@@ -12,8 +12,8 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "CThreeRSipHosted",
-            url: "https://github.com/3rinnovation/simon-eyes-apple-sdk/releases/download/0.1.0-rc.2/ThreeRSipHosted.xcframework.zip",
-            checksum: "be0dbb0a677c36bb2e64690837977e3fbd86eb03b89784b04d76f81557604a40"
+            url: "https://github.com/3rinnovation/simon-eyes-apple-sdk/releases/download/0.1.0/ThreeRSipHosted.xcframework.zip",
+            checksum: "0509897a501878891eda80661cf4b5df57bc8f5d9be28f9ee5a1b7343347a16a"
         ),
         .target(
             name: "ThreeRSip",
