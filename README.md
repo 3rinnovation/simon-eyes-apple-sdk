@@ -57,10 +57,16 @@ _ = try session.setupSensing(setupJson)      // 감지 계획
 _ = try session.registerSource(sourceJson)   // "motion" 출처와 그 능력
 _ = try session.judge(judgmentJson)          // 지금의 기기 상태
 
+let settings = try DeviceMotion.Settings.builder()
+    .windowMs(1_000)            // 창 길이
+    .samplingPeriodUs(20_000)   // 50 Hz
+    .deliveryMs(5_000)          // 세션에 넘기는 간격
+    .options(targetJson)        // 만들 관측, 예: device.posture
+    .build()
 let motion = try DeviceMotion(
     session: session,
     sourceId: "motion",
-    settings: try DeviceMotion.Settings.builder().build(),
+    settings: settings,
     listener: Listener()
 )
 if try motion.start() {
@@ -75,7 +81,8 @@ try session.close()
 
 ## 알아 둘 것
 
-- 바이너리는 서명되어 있지 않습니다. 앱은 평소처럼 여러분의 인증서로 서명되며, 패키지를 쓰는 데 지장은 없습니다.
+- 바이너리는 서명되어 있지 않습니다. 앱은 평소처럼 여러분의 인증서로 서명합니다.
+- Apple 개인정보 매니페스트(`PrivacyInfo.xcprivacy`)가 들어 있습니다. 바이너리 안의 Rust 표준 라이브러리가 파일 정보를 읽는 함수(`stat` 등)를 쓰므로, 파일 시각 API를 `C617.1`(앱 컨테이너 안 파일의 정보)로 밝힙니다. 추적과 데이터 수집은 없습니다.
 - 이 패키지는 `CMMotionManager`로 가속도계만 읽습니다. 다른 센서나 위치는 읽지 않습니다.
 - 바이너리는 정적 라이브러리입니다. 앱에 링크되어 함께 들어갑니다.
 
@@ -96,4 +103,6 @@ device's accelerometer (Core Motion) into it. Every rule runs in the binary core
 - Install: add `https://github.com/3rinnovation/simon-eyes-apple-sdk` with `exact: "0.1.0"` and use the
   product `ThreeRSip`.
 - The binary is not signed; your app is signed as usual.
+- It ships an Apple privacy manifest (`PrivacyInfo.xcprivacy`): file timestamp APIs used by the Rust
+  standard library inside the binary, reason `C617.1`; no tracking, no data collected.
 - Licence: see [LICENSE](LICENSE) and [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
