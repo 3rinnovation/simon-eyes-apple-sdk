@@ -52,8 +52,13 @@ The Swift sources and the rest of the library are 3R Innovation's (see LICENSE).
 - Used under: MIT (text below: zeroize)
 
 ### Rust standard library
-- Parts: std, core, alloc, compiler_builtins, libm and the Unicode tables, as compiled into the library
-- Licence: MIT OR Apache-2.0 (parts of compiler-builtins: Apache-2.0 WITH LLVM-exception); Unicode data: Unicode-3.0
+- Parts compiled into the library: std, core, alloc, compiler_builtins (with libm), std_detect,
+  panic_unwind, unwind, rustc_std_workspace_core, rustc_std_workspace_alloc, and the crates std uses for
+  backtraces and collections: addr2line, adler2, cfg-if, gimli, hashbrown, libc, memchr, miniz_oxide,
+  object, rustc-demangle; the Unicode tables
+- Licence: MIT OR Apache-2.0 for each (adler2: 0BSD OR MIT OR Apache-2.0; memchr: Unlicense OR MIT;
+  miniz_oxide: MIT OR Zlib OR Apache-2.0; parts of compiler-builtins: Apache-2.0 WITH LLVM-exception);
+  Unicode data: Unicode-3.0
 - Source: https://github.com/rust-lang/rust
 - Used under: MIT, and Unicode-3.0 for the Unicode data (texts below: Rust, Unicode)
 
